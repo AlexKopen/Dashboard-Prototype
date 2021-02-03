@@ -7,3 +7,14 @@ export interface Record {
   created: string;
   modified: string;
 }
+
+export enum FilterType {
+  text,
+  number
+}
+
+export class RecordFilter {
+  filterType: FilterType;
+  key: string;
+  value: T;
+}
