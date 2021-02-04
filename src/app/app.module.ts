@@ -15,6 +15,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { RecordDetailsComponent } from './record-details/record-details.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { StatsComponent } from './stats/stats.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FilterComponent,
     RecordGridComponent,
     RecordDetailsComponent,
-    DashboardComponent
+    DashboardComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

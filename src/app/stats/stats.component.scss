@@ -1,0 +1,16 @@
+h1 {
+  text-align: center;
+}
+
+#stats-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
+  .stat {
+    width: 100%;
+    max-width: 20em;
+    margin: 0.5em;
+  }
+}

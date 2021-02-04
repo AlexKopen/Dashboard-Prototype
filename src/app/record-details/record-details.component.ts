@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DashboardStateModel, Record } from '../shared/models';
-import { combineLatest, forkJoin, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 
 @Component({

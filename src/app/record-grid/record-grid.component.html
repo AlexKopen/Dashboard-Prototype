@@ -14,7 +14,7 @@
     <td [innerText]="record.title"></td>
     <td [innerText]="record.division"></td>
     <td [innerText]="record.project_owner"></td>
-    <td [innerText]="record.budget"></td>
+    <td>{{ record.budget | currency }}</td>
     <td [innerText]="record.status"></td>
     <td>{{ record.created | date }}</td>
     <td>{{ record.modified | date }}</td>
