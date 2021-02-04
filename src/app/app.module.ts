@@ -17,6 +17,11 @@ import { RecordDetailsComponent } from './record-details/record-details.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StatsComponent } from './stats/stats.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { CreateRecordComponent } from './create-record/create-record.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ExportRecordsComponent } from './export-records/export-records.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import { MatCardModule } from '@angular/material/card';
     RecordGridComponent,
     RecordDetailsComponent,
     DashboardComponent,
-    StatsComponent
+    StatsComponent,
+    CreateRecordComponent,
+    ExportRecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +44,10 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
