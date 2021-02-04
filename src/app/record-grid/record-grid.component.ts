@@ -18,10 +18,7 @@ export class RecordGridComponent implements OnInit {
 
   ngOnInit(): void {
     this.dashboardState$.subscribe((dashboardState: DashboardStateModel) => {
-      this.recordsToDisplay =
-        dashboardState.filteredRecords.length > 0
-          ? dashboardState.filteredRecords
-          : dashboardState.allRecords;
+      this.recordsToDisplay = dashboardState.filteredRecords;
     });
   }
 }

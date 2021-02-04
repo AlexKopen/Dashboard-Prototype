@@ -1,5 +1,6 @@
 <table>
   <tr>
+    <th>Details</th>
     <th>Title</th>
     <th>Division</th>
     <th>Project Owner</th>
@@ -9,6 +10,7 @@
     <th>Modified Date</th>
   </tr>
   <tr *ngFor="let record of recordsToDisplay">
+    <td><a [routerLink]="['/record', record.id]">Details</a></td>
     <td [innerText]="record.title"></td>
     <td [innerText]="record.division"></td>
     <td [innerText]="record.project_owner"></td>

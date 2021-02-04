@@ -1,4 +1,5 @@
 export interface Record {
+  id: number;
   title: string;
   division: string;
   project_owner: string;

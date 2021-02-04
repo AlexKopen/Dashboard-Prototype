@@ -1,10 +1,4 @@
-import {
-  Action,
-  NgxsOnChanges,
-  NgxsSimpleChange,
-  State,
-  StateContext
-} from '@ngxs/store';
+import { Action, State, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
 import { DashboardStateModel, Record, RecordFilter } from './models';
 import { RecordsService } from './records.service';
@@ -21,6 +15,11 @@ export class UpdateFilters {
   constructor(public filters: RecordFilter<any>[]) {}
 }
 
+export class PopulateFilteredRecords {
+  static readonly type = '[Dashboard] Populate Filtered Records';
+  constructor() {}
+}
+
 @State<DashboardStateModel>({
   name: 'dashboard',
   defaults: {
@@ -30,12 +29,8 @@ export class UpdateFilters {
   }
 })
 @Injectable()
-export class DashboardState implements NgxsOnChanges {
+export class DashboardState {
   constructor(private recordsService: RecordsService) {}
-
-  ngxsOnChanges(change: NgxsSimpleChange): void {
-    // console.log('change triggered');
-  }
 
   @Action(UpdateAllRecords)
   updateAllRecords(
@@ -72,6 +67,18 @@ export class DashboardState implements NgxsOnChanges {
     ctx.setState({
       ...state,
       filteredRecords: filteredValues
+    });
+  }
+
+  @Action(PopulateFilteredRecords)
+  updateFilteredRecords(
+    ctx: StateContext<DashboardStateModel>,
+    action: PopulateFilteredRecords
+  ): void {
+    const state = ctx.getState();
+    ctx.setState({
+      ...state,
+      filteredRecords: [...state.allRecords]
     });
   }
 }

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FilterType, RecordFilter } from '../shared/models';
 import { Store } from '@ngxs/store';
-import { UpdateFilters } from '../shared/dashboard.state';
+import {
+  PopulateFilteredRecords,
+  UpdateFilters
+} from '../shared/dashboard.state';
 
 @Component({
   selector: 'app-filter',
@@ -48,6 +51,10 @@ export class FilterComponent implements OnInit {
       });
 
       this.store.dispatch(new UpdateFilters(filters));
+
+      if (filters.length === 0) {
+        this.store.dispatch(new PopulateFilteredRecords());
+      }
     });
   }
 }
