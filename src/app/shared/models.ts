@@ -13,10 +13,16 @@ export enum FilterType {
   number
 }
 
-export interface RecordFilter<T> {
+export class RecordFilter<T> {
   filterType: FilterType;
   key: string;
   value: T;
+
+  constructor(filterType: FilterType, key: string, value: T) {
+    this.filterType = filterType;
+    this.key = key;
+    this.value = value;
+  }
 }
 
 export interface DashboardStateModel {
