@@ -28,7 +28,7 @@
     <mat-form-field class="example-form-field" appearance="fill">
       <mat-label>Created Date</mat-label>
       <mat-date-range-input
-        [formGroup]="createdDateRange"
+        [formGroup]="recordFilterForm"
         [rangePicker]="createdPicker"
         [comparisonStart]="recordFilterForm.value.createdStart"
         [comparisonEnd]="recordFilterForm.value.createdEnd"
@@ -50,7 +50,7 @@
     <mat-form-field class="example-form-field" appearance="fill">
       <mat-label>Modified Date</mat-label>
       <mat-date-range-input
-        [formGroup]="modifiedDateRange"
+        [formGroup]="recordFilterForm"
         [rangePicker]="modifiedPicker"
         [comparisonStart]="recordFilterForm.value.modifiedStart"
         [comparisonEnd]="recordFilterForm.value.modifiedEnd"

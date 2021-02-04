@@ -34,13 +34,11 @@ export interface DashboardStateModel {
 }
 
 export class DateRangeSelection {
-  startingDate: string;
-  endingDate: string;
-  attribute: string;
+  startingDate: Date;
+  endingDate: Date;
 
-  constructor(startingDate: string, endingDate: string, attribute: string) {
+  constructor(startingDate: Date, endingDate: Date) {
     this.startingDate = startingDate;
     this.endingDate = endingDate;
-    this.attribute = attribute;
   }
 }
