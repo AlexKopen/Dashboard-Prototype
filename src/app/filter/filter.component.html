@@ -25,32 +25,52 @@
       <input matInput formControlName="status" />
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Created</mat-label>
-      <input
-        matInput
-        [matDatepicker]="createdPicker"
-        formControlName="created"
-      />
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Created Date</mat-label>
+      <mat-date-range-input
+        [formGroup]="createdDateRange"
+        [rangePicker]="createdPicker"
+        [comparisonStart]="recordFilterForm.value.createdStart"
+        [comparisonEnd]="recordFilterForm.value.createdEnd"
+      >
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="createdStart"
+        />
+        <input matEndDate placeholder="End date" formControlName="createdEnd" />
+      </mat-date-range-input>
       <mat-datepicker-toggle
         matSuffix
         [for]="createdPicker"
       ></mat-datepicker-toggle>
-      <mat-datepicker #createdPicker></mat-datepicker>
+      <mat-date-range-picker #createdPicker></mat-date-range-picker>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Modified</mat-label>
-      <input
-        matInput
-        [matDatepicker]="modifiedPicker"
-        formControlName="modified"
-      />
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Modified Date</mat-label>
+      <mat-date-range-input
+        [formGroup]="modifiedDateRange"
+        [rangePicker]="modifiedPicker"
+        [comparisonStart]="recordFilterForm.value.modifiedStart"
+        [comparisonEnd]="recordFilterForm.value.modifiedEnd"
+      >
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="modifiedStart"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          formControlName="modifiedEnd"
+        />
+      </mat-date-range-input>
       <mat-datepicker-toggle
         matSuffix
         [for]="modifiedPicker"
       ></mat-datepicker-toggle>
-      <mat-datepicker #modifiedPicker></mat-datepicker>
+      <mat-date-range-picker #modifiedPicker></mat-date-range-picker>
     </mat-form-field>
   </div>
 </form>

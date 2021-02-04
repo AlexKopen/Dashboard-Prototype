@@ -32,3 +32,15 @@ export interface DashboardStateModel {
   filters: RecordFilter<any>[];
   filteredRecords: Record[];
 }
+
+export class DateRangeSelection {
+  startingDate: string;
+  endingDate: string;
+  attribute: string;
+
+  constructor(startingDate: string, endingDate: string, attribute: string) {
+    this.startingDate = startingDate;
+    this.endingDate = endingDate;
+    this.attribute = attribute;
+  }
+}

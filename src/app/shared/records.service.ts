@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   DashboardStateModel,
+  DateRangeSelection,
   FilterType,
   Record,
   RecordFilter
@@ -10,6 +11,9 @@ import {
   providedIn: 'root'
 })
 export class RecordsService {
+  public createdDateRange: DateRangeSelection;
+  public modifiedDateRange: DateRangeSelection;
+
   constructor() {}
 
   public filterRecords(state: DashboardStateModel): Record[] {
@@ -50,17 +54,77 @@ export class RecordsService {
             break;
 
           case FilterType.date:
-            const dateFilterCast = filter as RecordFilter<number>;
+            const dateFilterCast = filter as RecordFilter<DateRangeSelection>;
+
+            switch (dateFilterCast.value.attribute) {
+              case 'created':
+                this.createdDateRange = dateFilterCast.value;
+                break;
+              case 'modified':
+                this.modifiedDateRange = dateFilterCast.value;
+                break;
+            }
+
             const dateAttributeSelection: Date = new Date(
               (record as any)[dateFilterCast.key]
             );
-            if (!dateAttributeSelection || !dateFilterCast.value) {
-              recordIsMatch = false;
+
+            if (this.modifiedDateRange) {
+              if (
+                !dateAttributeSelection ||
+                !this.modifiedDateRange.startingDate ||
+                !this.modifiedDateRange.endingDate
+              ) {
+                recordIsMatch = false;
+              }
+
+              if (
+                dateAttributeSelection.getTime() >
+                  new Date(this.modifiedDateRange.endingDate).getTime() ||
+                dateAttributeSelection.getTime() <
+                  new Date(this.modifiedDateRange.startingDate).getTime()
+              ) {
+                recordIsMatch = false;
+              }
+
+              if (
+                (this.modifiedDateRange.startingDate.length > 0 &&
+                  this.modifiedDateRange.startingDate.trim().length === 0) ||
+                (this.modifiedDateRange.endingDate.length > 0 &&
+                  this.modifiedDateRange.endingDate.trim().length === 0)
+              ) {
+                recordIsMatch = true;
+              }
             }
 
-            if (dateAttributeSelection.getTime() < dateFilterCast.value) {
-              recordIsMatch = false;
+            if (this.createdDateRange) {
+              if (
+                !dateAttributeSelection ||
+                !this.createdDateRange.startingDate ||
+                !this.createdDateRange.endingDate
+              ) {
+                recordIsMatch = false;
+              }
+
+              if (
+                dateAttributeSelection.getTime() >
+                  new Date(this.createdDateRange.endingDate).getTime() ||
+                dateAttributeSelection.getTime() <
+                  new Date(this.createdDateRange.startingDate).getTime()
+              ) {
+                recordIsMatch = false;
+              }
+
+              if (
+                (this.createdDateRange.startingDate.length > 0 &&
+                  this.createdDateRange.startingDate.trim().length === 0) ||
+                (this.createdDateRange.endingDate.length > 0 &&
+                  this.createdDateRange.endingDate.trim().length === 0)
+              ) {
+                recordIsMatch = true;
+              }
             }
+
             break;
         }
       });
