@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordsService } from './shared/records.service';
 import { SAMPLE_DATA } from './shared/constants';
+import { Store } from '@ngxs/store';
+import { UpdateAllRecords } from './shared/dashboard.state';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,9 @@ import { SAMPLE_DATA } from './shared/constants';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private recordsService: RecordsService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.recordsService.records$.next(JSON.parse(SAMPLE_DATA));
+    this.store.dispatch(new UpdateAllRecords(JSON.parse(SAMPLE_DATA)));
   }
 }

@@ -13,8 +13,14 @@ export enum FilterType {
   number
 }
 
-export class RecordFilter {
+export interface RecordFilter<T> {
   filterType: FilterType;
   key: string;
   value: T;
+}
+
+export interface DashboardStateModel {
+  allRecords: Record[];
+  filters: RecordFilter<any>[];
+  filteredRecords: Record[];
 }
