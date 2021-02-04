@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {DateRangeSelection, FilterType, RecordFilter} from '../shared/models';
-import {Store} from '@ngxs/store';
-import {PopulateFilteredRecords, UpdateFilters} from '../shared/dashboard.state';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DateRangeSelection, FilterType, RecordFilter } from '../shared/models';
+import { Store } from '@ngxs/store';
+import {
+  PopulateFilteredRecords,
+  UpdateFilters
+} from '../shared/dashboard.state';
 
 @Component({
   selector: 'app-filter',
@@ -24,10 +27,14 @@ export class FilterComponent implements OnInit {
 
   textKeys: string[] = ['title', 'division', 'project_owner', 'status'];
   numberKeys: string[] = ['budget'];
-  dateKeys: string[] = ['createdStart', 'createdEnd', 'modifiedStart', 'modifiedEnd'];
+  dateKeys: string[] = [
+    'createdStart',
+    'createdEnd',
+    'modifiedStart',
+    'modifiedEnd'
+  ];
 
-  constructor(private store: Store) {
-  }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.recordFilterForm.valueChanges.subscribe(value => {
@@ -44,16 +51,13 @@ export class FilterComponent implements OnInit {
               new RecordFilter<number>(FilterType.number, key, +value[key])
             );
           } else if (this.dateKeys.includes(key)) {
-            console.log('date key includes', key)
+            console.log('date key includes', key);
             if (key.indexOf('created') > -1) {
               filters.push(
                 new RecordFilter<DateRangeSelection>(
                   FilterType.date,
                   'created',
-                  new DateRangeSelection(
-                    value.createdStart,
-                    value.createdEnd,
-                  )
+                  new DateRangeSelection(value.createdStart, value.createdEnd)
                 )
               );
             } else if (key.indexOf('modified') > -1) {
@@ -61,20 +65,15 @@ export class FilterComponent implements OnInit {
                 new RecordFilter<DateRangeSelection>(
                   FilterType.date,
                   'modified',
-                  new DateRangeSelection(
-                    value.modifiedStart,
-                    value.modifiedEnd,
-                  )
+                  new DateRangeSelection(value.modifiedStart, value.modifiedEnd)
                 )
               );
             }
-
           }
-
         }
       });
 
-      console.log(filters, 'here')
+      console.log(filters, 'here');
       this.store.dispatch(new UpdateFilters(filters));
 
       if (filters.length === 0) {

@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   DashboardStateModel,
   DateRangeSelection,
@@ -11,9 +11,7 @@ import {
   providedIn: 'root'
 })
 export class RecordsService {
-
-  constructor() {
-  }
+  constructor() {}
 
   public filterRecords(state: DashboardStateModel): Record[] {
     const filteredRecords: Record[] = [];
@@ -26,7 +24,7 @@ export class RecordsService {
             const textFilterCast = filter as RecordFilter<string>;
             const textAttributeSelection: string = (record as any)[
               textFilterCast.key
-              ];
+            ];
             if (
               !textAttributeSelection ||
               !textFilterCast.value ||
@@ -42,7 +40,7 @@ export class RecordsService {
             const numberFilterCast = filter as RecordFilter<number>;
             const numberAttributeSelection: number = (record as any)[
               numberFilterCast.key
-              ];
+            ];
             if (
               !numberAttributeSelection ||
               !numberFilterCast.value ||
@@ -57,25 +55,30 @@ export class RecordsService {
             let dateAttributeSelection: Date;
 
             if (filter.key.indexOf('created') > -1) {
-              dateAttributeSelection = new Date(
-                record.created
-              );
-
+              dateAttributeSelection = new Date(record.created);
             } else {
-              dateAttributeSelection = new Date(
-                record.modified
-              );
+              dateAttributeSelection = new Date(record.modified);
             }
 
-            if (!dateFilterCast.value.startingDate || !dateFilterCast.value.endingDate) {
+            if (
+              !dateFilterCast.value.startingDate ||
+              !dateFilterCast.value.endingDate
+            ) {
               recordIsMatch = false;
             }
 
-            if (!dateAttributeSelection || !dateFilterCast.value.startingDate ||
-            !dateFilterCast.value.endingDate) {
+            if (
+              !dateAttributeSelection ||
+              !dateFilterCast.value.startingDate ||
+              !dateFilterCast.value.endingDate
+            ) {
               recordIsMatch = true;
-            } else if (dateAttributeSelection.getTime() < dateFilterCast.value.startingDate.getTime() ||
-              dateAttributeSelection.getTime() > dateFilterCast.value.endingDate.getTime()) {
+            } else if (
+              dateAttributeSelection.getTime() <
+                dateFilterCast.value.startingDate.getTime() ||
+              dateAttributeSelection.getTime() >
+                dateFilterCast.value.endingDate.getTime()
+            ) {
               recordIsMatch = false;
             }
 
