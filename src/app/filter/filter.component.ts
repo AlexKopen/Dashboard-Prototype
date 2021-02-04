@@ -15,12 +15,13 @@ export class FilterComponent implements OnInit {
     division: new FormControl(''),
     project_owner: new FormControl(''),
     budget: new FormControl(''),
-    status: new FormControl('')
-    // dateRange: new FormGroup({
-    //   created: new FormControl(''),
-    //   modified: new FormControl('')
-    // })
+    status: new FormControl(''),
+    created: new FormControl(''),
+    modified: new FormControl('')
   });
+
+  private numberKeys: string[] = ['budget'];
+  private dateKeys: string[] = ['created', 'modified'];
 
   constructor(private store: Store) {}
 
@@ -29,10 +30,20 @@ export class FilterComponent implements OnInit {
       const filters: RecordFilter<any>[] = [];
 
       Object.keys(value).forEach((key: string) => {
-        if (value[key].length > 0) {
-          filters.push(
-            new RecordFilter<string>(FilterType.text, key, value[key])
-          );
+        if (value[key]) {
+          if (this.numberKeys.includes(key)) {
+            filters.push(
+              new RecordFilter<number>(FilterType.number, key, +value[key])
+            );
+          } else if (this.dateKeys.includes(key)) {
+            filters.push(
+              new RecordFilter<Date>(FilterType.date, key, new Date(value[key]))
+            );
+          } else if (value[key].length > 0) {
+            filters.push(
+              new RecordFilter<string>(FilterType.text, key, value[key])
+            );
+          }
         }
       });
 

@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -7,8 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterComponent } from './filter/filter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
-import { DashboardState, UpdateAllRecords } from './shared/dashboard.state';
+import { DashboardState } from './shared/dashboard.state';
 import { RecordGridComponent } from './record-grid/record-grid.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AppComponent, FilterComponent, RecordGridComponent],
@@ -17,7 +21,11 @@ import { RecordGridComponent } from './record-grid/record-grid.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    NgxsModule.forRoot([DashboardState], {})
+    NgxsModule.forRoot([DashboardState], {}),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

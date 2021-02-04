@@ -34,7 +34,7 @@ export class DashboardState implements NgxsOnChanges {
   constructor(private recordsService: RecordsService) {}
 
   ngxsOnChanges(change: NgxsSimpleChange): void {
-    console.log('change triggered');
+    // console.log('change triggered');
   }
 
   @Action(UpdateAllRecords)

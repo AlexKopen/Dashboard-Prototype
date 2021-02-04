@@ -1,6 +1,56 @@
 <form [formGroup]="recordFilterForm">
-  <label>
-    Title:
-    <input type="text" formControlName="title" />
-  </label>
+  <div id="filter-controls">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Division</mat-label>
+      <input matInput formControlName="division" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Project Owner</mat-label>
+      <input matInput formControlName="project_owner" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Budget</mat-label>
+      <input matInput formControlName="budget" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <input matInput formControlName="status" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Created</mat-label>
+      <input
+        matInput
+        [matDatepicker]="createdPicker"
+        formControlName="created"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="createdPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #createdPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Modified</mat-label>
+      <input
+        matInput
+        [matDatepicker]="modifiedPicker"
+        formControlName="modified"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="modifiedPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #modifiedPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
 </form>

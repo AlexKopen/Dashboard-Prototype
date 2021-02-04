@@ -13,26 +13,63 @@ export class RecordsService {
   constructor() {}
 
   public filterRecords(state: DashboardStateModel): Record[] {
-    console.log('filter records called');
-    const recordsSet = new Set();
+    const filteredRecords: Record[] = [];
 
-    state.filters.forEach((filter: RecordFilter<any>) => {
-      state.allRecords.forEach((record: Record) => {
+    state.allRecords.forEach((record: Record) => {
+      let recordIsMatch = true;
+      state.filters.forEach((filter: RecordFilter<any>) => {
         switch (filter.filterType) {
           case FilterType.text:
-            const filterCast = filter as RecordFilter<string>;
-            const textAttribute: string = (record as any)[filterCast.key];
+            const textFilterCast = filter as RecordFilter<string>;
+            const textAttributeSelection: string = (record as any)[
+              textFilterCast.key
+            ];
             if (
-              textAttribute
+              !textAttributeSelection ||
+              !textFilterCast.value ||
+              textAttributeSelection
                 .toLowerCase()
-                .indexOf(filterCast.value.toLowerCase()) > -1
+                .indexOf(textFilterCast.value.toLowerCase()) === -1
             ) {
-              recordsSet.add(record);
+              recordIsMatch = false;
             }
+            break;
+
+          case FilterType.number:
+            const numberFilterCast = filter as RecordFilter<number>;
+            const numberAttributeSelection: number = (record as any)[
+              numberFilterCast.key
+            ];
+            if (
+              !numberAttributeSelection ||
+              !numberFilterCast.value ||
+              numberAttributeSelection >= numberFilterCast.value
+            ) {
+              recordIsMatch = false;
+            }
+            break;
+
+          case FilterType.date:
+            const dateFilterCast = filter as RecordFilter<number>;
+            const dateAttributeSelection: Date = new Date(
+              (record as any)[dateFilterCast.key]
+            );
+            if (!dateAttributeSelection || !dateFilterCast.value) {
+              recordIsMatch = false;
+            }
+
+            if (dateAttributeSelection.getTime() < dateFilterCast.value) {
+              recordIsMatch = false;
+            }
+            break;
         }
       });
+
+      if (recordIsMatch) {
+        filteredRecords.push(record);
+      }
     });
 
-    return Array.from(recordsSet) as Record[];
+    return filteredRecords;
   }
 }

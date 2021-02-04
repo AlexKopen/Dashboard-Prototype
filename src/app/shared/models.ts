@@ -10,7 +10,8 @@ export interface Record {
 
 export enum FilterType {
   text,
-  number
+  number,
+  date
 }
 
 export class RecordFilter<T> {

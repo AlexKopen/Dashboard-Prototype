@@ -1,0 +1,11 @@
+#filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
+  mat-form-field {
+    width: 100%;
+    max-width: 27em;
+    margin: 0.5em;
+  }
+}
