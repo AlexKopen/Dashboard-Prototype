@@ -10,6 +10,7 @@
 <table>
   <tr>
     <th>Details</th>
+    <th>Edit</th>
     <th>Title</th>
     <th>Division</th>
     <th>Project Owner</th>
@@ -20,11 +21,57 @@
   </tr>
   <tr *ngFor="let record of recordsToDisplay">
     <td><a [routerLink]="['/record', record.id]">Details</a></td>
+    <td class="link-style">
+      <ng-container *ngIf="recordEditActive(record); else editDisplay">
+        <span (click)="stopEdit(record)">Save</span>
+      </ng-container>
+
+      <ng-template #editDisplay>
+        <span (click)="edit(record.id)">Edit</span>
+      </ng-template>
+    </td>
     <td [innerText]="record.title"></td>
     <td [innerText]="record.division"></td>
-    <td [innerText]="record.project_owner"></td>
-    <td>{{ record.budget | currency }}</td>
-    <td [innerText]="record.status"></td>
+    <td>
+      <ng-container *ngIf="recordEditActive(record); else projectOwnerDisplay">
+        <mat-form-field appearance="fill" class="inline-field">
+          <mat-label>Project Owner</mat-label>
+          <input
+            matInput
+            [value]="record.project_owner"
+            [(ngModel)]="record.project_owner"
+          />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-template #projectOwnerDisplay>
+        {{ record.project_owner }}
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="recordEditActive(record); else budgetDisplay">
+        <mat-form-field appearance="fill" class="inline-field">
+          <mat-label>Budget</mat-label>
+          <input matInput [value]="record.budget" [(ngModel)]="record.budget" />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-template #budgetDisplay>
+        {{ record.budget | currency }}
+      </ng-template>
+    </td>
+    <td>
+      <ng-container *ngIf="recordEditActive(record); else statusDisplay">
+        <mat-form-field appearance="fill" class="inline-field">
+          <mat-label>Status</mat-label>
+          <input matInput [value]="record.status" [(ngModel)]="record.status" />
+        </mat-form-field>
+      </ng-container>
+
+      <ng-template #statusDisplay>
+        {{ record.status }}
+      </ng-template>
+    </td>
     <td>{{ record.created | date }}</td>
     <td>{{ record.modified | date }}</td>
   </tr>

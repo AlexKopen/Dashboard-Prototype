@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterComponent } from './filter/filter.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
 import { DashboardState } from './shared/dashboard.state';
 import { RecordGridComponent } from './record-grid/record-grid.component';
@@ -22,6 +22,7 @@ import { CreateRecordComponent } from './create-record/create-record.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ExportRecordsComponent } from './export-records/export-records.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -29,7 +29,7 @@ export class StatsComponent implements OnInit {
   get averageBudget(): number {
     return (
       this.dashboardState.allRecords.reduce((previousValue, currentValue) => {
-        return previousValue + currentValue.budget;
+        return previousValue + +currentValue.budget;
       }, 0) / this.dashboardState.allRecords.length
     );
   }
