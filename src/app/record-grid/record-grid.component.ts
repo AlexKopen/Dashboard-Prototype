@@ -34,28 +34,33 @@ export class RecordGridComponent implements OnInit {
     });
   }
 
+  // Create record UI placeholder
   public createRecordDialog(): void {
     this.dialog.open(CreateRecordComponent, {
       width: '60em'
     });
   }
 
+  // Export record UI placeholder
   public exportDialog(): void {
     this.dialog.open(ExportRecordsComponent, {
       width: '60em'
     });
   }
 
+  // Show success message after an edit
   public openSnackBar(): void {
     this.snackBar.open('Record updated', '', {
       duration: 2000
     });
   }
 
+  // Begin record edit
   public edit(id: number): void {
     this.recordIdsInEdit.add(id);
   }
 
+  // Stop editing the current record and update the new values in the store
   public stopEdit(editedRecord: Record): void {
     const changedRecord = this.allRecords.find((record: Record) => {
       return record.id === editedRecord.id;

@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
+    // Parse and store the sample data in the state
     const sampleRecords: Record[] = JSON.parse(SAMPLE_DATA);
     sampleRecords.forEach((record, index) => {
       record.id = index;

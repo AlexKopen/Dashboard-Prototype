@@ -1,27 +1,103 @@
-# DashboardPrototype
+# Dashboard Prototype
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+Dashboard prototype application, built with Angular, Angular Material, and NGXS.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+npm install
+```
 
-## Code scaffolding
+## Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+npm run start
+```
 
-## Build
+## Technical Overview
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Data Models
 
-## Running unit tests
+`src/app/shared/models.ts`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+export interface Record {
+  id: number;
+  title: string;
+  division: string;
+  project_owner: string;
+  budget: number;
+  status: string;
+  created: string;
+  modified: string;
+}
 
-## Running end-to-end tests
+// Used to process different filter data types
+export enum FilterType {
+  text,
+  number,
+  date
+}
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+// Record filter with a generic type
+export class RecordFilter<T> {
+  filterType: FilterType;
+  key: string;
+  value: T;
 
-## Further help
+  constructor(filterType: FilterType, key: string, value: T) {
+    this.filterType = filterType;
+    this.key = key;
+    this.value = value;
+  }
+}
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+// Application state
+export interface DashboardStateModel {
+  allRecords: Record[];
+  filters: RecordFilter<any>[];
+  filteredRecords: Record[];
+}
+
+// Date range selection for use with a date picker
+export class DateRangeSelection {
+  startingDate: Date;
+  endingDate: Date;
+
+  constructor(startingDate: Date, endingDate: Date) {
+    this.startingDate = startingDate;
+    this.endingDate = endingDate;
+  }
+}
+```
+
+### State management
+
+[ngxs.io](NGXS) was used to implement state management throughout the application.
+
+The following state actions are avaiable:
+`src/app/shared/dashboard.state.ts`
+
+```typescript
+export class UpdateAllRecords {
+  static readonly type = '[Dashboard] Update All Records';
+
+  constructor(public records: Record[]) {}
+}
+
+export class UpdateFilters {
+  static readonly type = '[Dashboard] Update Filters';
+
+  constructor(public filters: RecordFilter<any>[]) {}
+}
+
+export class PopulateFilteredRecords {
+  static readonly type = '[Dashboard] Populate Filtered Records';
+  constructor() {}
+}
+```
+
+### Filtering
+
+`src/app/shared/records.service.ts` contains a `filterRecords` function which iterates through each
+'RecordFilter<T>' object stored in the state, and outputs the filtered Records.

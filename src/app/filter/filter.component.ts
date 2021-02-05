@@ -37,9 +37,11 @@ export class FilterComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
+    // On each form change, create new filter values to pass to the store
     this.recordFilterForm.valueChanges.subscribe(value => {
       const filters: RecordFilter<any>[] = [];
 
+      // Create record filter objects based on the filter's data type
       Object.keys(value).forEach((key: string) => {
         if (value[key]) {
           if (this.textKeys.includes(key)) {
@@ -51,8 +53,11 @@ export class FilterComponent implements OnInit {
               new RecordFilter<number>(FilterType.number, key, +value[key])
             );
           } else if (this.dateKeys.includes(key)) {
-            console.log('date key includes', key);
-            if (key.indexOf('created') > -1) {
+            if (
+              key.indexOf('created') > -1 &&
+              value.createdStart &&
+              value.createdEnd
+            ) {
               filters.push(
                 new RecordFilter<DateRangeSelection>(
                   FilterType.date,
@@ -60,7 +65,11 @@ export class FilterComponent implements OnInit {
                   new DateRangeSelection(value.createdStart, value.createdEnd)
                 )
               );
-            } else if (key.indexOf('modified') > -1) {
+            } else if (
+              key.indexOf('modified') > -1 &&
+              value.modifiedStart &&
+              value.modifiedEnd
+            ) {
               filters.push(
                 new RecordFilter<DateRangeSelection>(
                   FilterType.date,
@@ -73,9 +82,10 @@ export class FilterComponent implements OnInit {
         }
       });
 
-      console.log(filters, 'here');
+      // Update the store
       this.store.dispatch(new UpdateFilters(filters));
 
+      // If no filters are passed, show all records
       if (filters.length === 0) {
         this.store.dispatch(new PopulateFilteredRecords());
       }

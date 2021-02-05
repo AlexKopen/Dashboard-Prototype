@@ -13,13 +13,16 @@ import {
 export class RecordsService {
   constructor() {}
 
+  // Filter records based on the record filter objects currently in the state
   public filterRecords(state: DashboardStateModel): Record[] {
     const filteredRecords: Record[] = [];
 
+    // Iterate through each record, processing all filters for each
     state.allRecords.forEach((record: Record) => {
       let recordIsMatch = true;
       state.filters.forEach((filter: RecordFilter<any>) => {
         switch (filter.filterType) {
+          // Check to see if the attribute value contains the substring of the entered text
           case FilterType.text:
             const textFilterCast = filter as RecordFilter<string>;
             const textAttributeSelection: string = (record as any)[
@@ -36,6 +39,7 @@ export class RecordsService {
             }
             break;
 
+          //  Ensure the budget is below the entered number
           case FilterType.number:
             const numberFilterCast = filter as RecordFilter<number>;
             const numberAttributeSelection: number = (record as any)[
@@ -50,6 +54,7 @@ export class RecordsService {
             }
             break;
 
+          //  Ensure the date occurs between the start and end date
           case FilterType.date:
             const dateFilterCast = filter as RecordFilter<DateRangeSelection>;
             let dateAttributeSelection: Date;

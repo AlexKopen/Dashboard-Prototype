@@ -9,12 +9,14 @@ export interface Record {
   modified: string;
 }
 
+// Used to process different filter data types
 export enum FilterType {
   text,
   number,
   date
 }
 
+// Record filter with a generic type
 export class RecordFilter<T> {
   filterType: FilterType;
   key: string;
@@ -27,12 +29,14 @@ export class RecordFilter<T> {
   }
 }
 
+// Application state
 export interface DashboardStateModel {
   allRecords: Record[];
   filters: RecordFilter<any>[];
   filteredRecords: Record[];
 }
 
+// Date range selection for use with a date picker
 export class DateRangeSelection {
   startingDate: Date;
   endingDate: Date;
