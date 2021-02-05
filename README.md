@@ -10,6 +10,7 @@ npm install
 
 ## Usage
 
+To run the application at `localhost:4200`, run the following command:
 ```
 npm run start
 ```
@@ -100,4 +101,4 @@ export class PopulateFilteredRecords {
 ### Filtering
 
 `src/app/shared/records.service.ts` contains a `filterRecords` function which iterates through each
-'RecordFilter<T>' object stored in the state, and outputs the filtered Records.
+`RecordFilter<T>` object stored in the state, and outputs the filtered Records.
